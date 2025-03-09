@@ -2,58 +2,59 @@ package cmd
 
 import (
 	"encoding/json"
-	"fmt"
-	"io"
-	"net/http"
+	"log"
 
-	"github.com/spf13/cobra"
+	"github.com/obaraelijah/cirr/internal/utils"
 )
 
-type AWSIPRanges struct {
-	SyncToken  string `json:"syncToken"`
-	CreateDate string `json:"createDate"`
-	Prefixes   []struct {
-		IPprefix string `json:"ip_prefix"`
-		Region   string `json:"region"`
-		Service  string `json:"service"`
-	} `json:"prefixes"`
+type IPv4Prefix struct {
+	IPAddress          string `json:"ip_prefix"`
+	Region             string `json:"region"`
+	Service            string `json:"service"`
+	NetworkBorderGroup string `json:"network_border_group"`
 }
 
-var awsCmd = &cobra.Command{
-	Use:   "aws",
-	Short: "Fetch AWS IP ranges",
-	Run: func(cmd *cobra.Command, args []string) {
-		fetchAWSIPRanges()
-	},
+// IPv6Prefix represents the structure of each IPv6 prefix.
+type IPv6Prefix struct {
+	IPv6Address        string `json:"ipv6_prefix"`
+	Region             string `json:"region"`
+	Service            string `json:"service"`
+	NetworkBorderGroup string `json:"network_border_group"`
 }
 
-func init() {
-	rootCmd.AddCommand(awsCmd)
+// Data represents the entire JSON structure.
+type IPsData struct {
+	SyncToken    string       `json:"syncToken"`
+	CreateDate   string       `json:"createDate"`
+	Prefixes     []IPv4Prefix `json:"prefixes"`
+	IPv6Prefixes []IPv6Prefix `json:"ipv6_prefixes"`
 }
 
-func fetchAWSIPRanges() {
-	url := "https://ip-ranges.amazonaws.com/ip-ranges.json"
-	resp, err := http.Get(url)
+func GetIPRanges(ipType string) {
+	logger := utils.GetCirrLogger()
+	raw_data := utils.GetReq("https://ip-ranges.amazonaws.com/ip-ranges.json")
+
+	var data IPsData
+
+	err := json.Unmarshal([]byte(raw_data), &data)
 	if err != nil {
-		fmt.Println("Error fetching AWS IP ranges:", err)
-		return
-	}
-	defer resp.Body.Close()
-
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		fmt.Println("Error reading response:", err)
-		return
+		log.Fatalf("Error unmarshalling JSON: %v", err)
 	}
 
-	var ipRanges AWSIPRanges
-	if err := json.Unmarshal(body, &ipRanges); err != nil {
-		fmt.Println("Error parsing JSON:", err)
-		return
-	}
+	logger.Printf("Sync Token: %s\n", data.SyncToken)
+	logger.Printf("Create Date: %s\n", data.CreateDate)
 
-	fmt.Println("AWS IP Ranges:")
-	for _, prefix := range ipRanges.Prefixes {
-		fmt.Printf("IP Prefix: %s, Region: %s, Service: %s\n", prefix.IPprefix, prefix.Region, prefix.Service)
+	if ipType == "ipv4" {
+		logger.Println("Prefixes:")
+		for _, prefix := range data.Prefixes {
+			logger.Printf("  IP Prefix: %s, Region: %s, Service: %s, Network Border Group: %s\n",
+				prefix.IPAddress, prefix.Region, prefix.Service, prefix.NetworkBorderGroup)
+		}
+	} else if ipType == "ipv6" {
+		logger.Println("IPv6 Prefixes:")
+		for _, ipv6prefix := range data.IPv6Prefixes {
+			logger.Printf("  IPv6 Prefix: %s, Region: %s, Service: %s, Network Border Group: %s\n",
+				ipv6prefix.IPv6Address, ipv6prefix.Region, ipv6prefix.Service, ipv6prefix.NetworkBorderGroup)
+		}
 	}
 }
