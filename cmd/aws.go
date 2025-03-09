@@ -1,60 +1,32 @@
 package cmd
 
 import (
-	"encoding/json"
-	"log"
-
+	"github.com/obaraelijah/cirr/internal/aws"
 	"github.com/obaraelijah/cirr/internal/utils"
+	"github.com/spf13/cobra"
 )
 
-type IPv4Prefix struct {
-	IPAddress          string `json:"ip_prefix"`
-	Region             string `json:"region"`
-	Service            string `json:"service"`
-	NetworkBorderGroup string `json:"network_border_group"`
-}
+var awsCmd = &cobra.Command{
+	Use:   "aws",
+	Short: "Get AWS IP ranges.",
+	Long:  `Get AWS IPv4 and IPv6 ranges.`,
+	Run: func(cmd *cobra.Command, args []string) {
+		logger := utils.GetCirrLogger()
 
-// IPv6Prefix represents the structure of each IPv6 prefix.
-type IPv6Prefix struct {
-	IPv6Address        string `json:"ipv6_prefix"`
-	Region             string `json:"region"`
-	Service            string `json:"service"`
-	NetworkBorderGroup string `json:"network_border_group"`
-}
+		logger.Println("AWS subcommand called")
 
-// Data represents the entire JSON structure.
-type IPsData struct {
-	SyncToken    string       `json:"syncToken"`
-	CreateDate   string       `json:"createDate"`
-	Prefixes     []IPv4Prefix `json:"prefixes"`
-	IPv6Prefixes []IPv6Prefix `json:"ipv6_prefixes"`
-}
-
-func GetIPRanges(ipType string) {
-	logger := utils.GetCirrLogger()
-	raw_data := utils.GetReq("https://ip-ranges.amazonaws.com/ip-ranges.json")
-
-	var data IPsData
-
-	err := json.Unmarshal([]byte(raw_data), &data)
-	if err != nil {
-		log.Fatalf("Error unmarshalling JSON: %v", err)
-	}
-
-	logger.Printf("Sync Token: %s\n", data.SyncToken)
-	logger.Printf("Create Date: %s\n", data.CreateDate)
-
-	if ipType == "ipv4" {
-		logger.Println("Prefixes:")
-		for _, prefix := range data.Prefixes {
-			logger.Printf("  IP Prefix: %s, Region: %s, Service: %s, Network Border Group: %s\n",
-				prefix.IPAddress, prefix.Region, prefix.Service, prefix.NetworkBorderGroup)
+		if ipv4Flag || (!ipv4Flag && !ipv6Flag) {
+			aws.GetIPRanges("ipv4")
 		}
-	} else if ipType == "ipv6" {
-		logger.Println("IPv6 Prefixes:")
-		for _, ipv6prefix := range data.IPv6Prefixes {
-			logger.Printf("  IPv6 Prefix: %s, Region: %s, Service: %s, Network Border Group: %s\n",
-				ipv6prefix.IPv6Address, ipv6prefix.Region, ipv6prefix.Service, ipv6prefix.NetworkBorderGroup)
+		if ipv6Flag || (!ipv4Flag && !ipv6Flag) {
+			aws.GetIPRanges("ipv6")
 		}
-	}
+	},
+}
+
+func main() {
+	rootCmd.AddCommand(awsCmd)
+
+	awsCmd.Flags().BoolVar(&ipv4Flag, "ipv4", false, "Get only IPv4 ranges")
+	awsCmd.Flags().BoolVar(&ipv6Flag, "ipv6", false, "Get only IPv6 ranges")
 }
