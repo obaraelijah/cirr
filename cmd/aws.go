@@ -30,7 +30,7 @@ var awsCmd = &cobra.Command{
 	},
 }
 
-func main() {
+func init() {
 	rootCmd.AddCommand(awsCmd)
 
 	awsCmd.Flags().BoolVar(&awsIPv4Flag, "ipv4", false, "Get only IPv4 ranges")
