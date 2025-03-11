@@ -15,7 +15,8 @@ fi
 RELEASE_URL=$(curl -s https://api.github.com/repos/obaraelijah/cirr/releases/latest \
     | grep "browser_download_url.*$BINARY_NAME" \
     | cut -d : -f 2,3 \
-    | tr -d \")
+    | tr -d \" \
+    | xargs)
 
 if [ -z "$RELEASE_URL" ]; then
     echo "Failed to fetch the latest release URL. Please check your internet connection and try again."
