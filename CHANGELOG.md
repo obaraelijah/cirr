@@ -1,4 +1,13 @@
 # Changelog
+
+## [0.3.0](https://github.com/obaraelijah/cirr/compare/0.2.0...v0.3.0) (2025-03-11)
+
+
+### Features
+
+* add simple logic for ipv4 and ipv6 filtration ([930ff3c](https://github.com/obaraelijah/cirr/commit/930ff3c9124352b553b325cafa84b146994b1fff))
+
+## Changelog
  
  ## [0.2.0](https://github.com/obaraelijah/cirr/compare/v0.1.0...v0.2.0) (2024-07-27)
  
