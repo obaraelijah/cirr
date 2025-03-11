@@ -11,9 +11,10 @@ import (
 var cfgFile string
 
 var rootCmd = &cobra.Command{
-	Use:   "cirr",
-	Short: "",
-	Long:  ``,
+	Use:     "cirr",
+	Version: "v0.0.0-dev",
+	Short:   "",
+	Long:    ``,
 }
 
 func Execute() {
