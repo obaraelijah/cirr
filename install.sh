@@ -6,7 +6,7 @@ ARCH=$(uname -m)
 OS=$(uname -s | tr '[:upper:]' '[:lower:]')
 
 if [ "$ARCH" = "arm64" ] && [ "$OS" = "darwin" ]; then
-    BINARY_NAME="cipr-darwin-arm64"
+    BINARY_NAME="cirr-darwin-arm64"
 else
     echo "Unsupported architecture: $ARCH on $OS"
     exit 1
@@ -24,10 +24,10 @@ fi
 
 echo "Downloading the latest release from: $RELEASE_URL"
 
-curl -L -o cipr "$RELEASE_URL"
+curl -L -o cirr "$RELEASE_URL"
 
-chmod +x cipr
+chmod +x cirr
 
-sudo mv cipr /usr/local/bin/
+sudo mv cirr /usr/local/bin/
 
-echo "Installation complete. You can now use the 'cipr' command."
+echo "Installation complete. You can now use the 'cirr' command."
