@@ -5,13 +5,15 @@ This tool retrieves IP ranges from various providers, currently supporting AWS, 
 > [!WARNING]
 > This tool is still WIP.
 
-## Installation
+## Install or Uninstall
+
+- Install
 
 ```bash
  curl https://raw.githubusercontent.com/obaraelijah/cirr/main/install.sh | bash
 ```
 
-## Uninstallation
+- Uninstall
  
 ```bash
  curl https://raw.githubusercontent.com/obaraelijah/cirr/main/uninstall.sh | bash
