@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-func GetReq(endpoint string) string {
+func GetRawData(endpoint string) string {
 	logger := GetCirrLogger()
 	response, err := http.Get(endpoint)
 

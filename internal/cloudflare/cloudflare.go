@@ -7,13 +7,13 @@ import (
 )
 
 func GetCloudflareIPv4Ranges() {
-	data := utils.GetReq("https://www.cloudflare.com/ips-v4/")
+	data := utils.GetRawData("https://www.cloudflare.com/ips-v4/")
 
 	fmt.Println(data)
 }
 
 func GetCloudflareIPv6Ranges() {
-	data := utils.GetReq("https://www.cloudflare.com/ips-v6/")
+	data := utils.GetRawData("https://www.cloudflare.com/ips-v6/")
 
 	fmt.Println(data)
 }
