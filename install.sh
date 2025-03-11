@@ -27,8 +27,13 @@ echo "Downloading the latest release from: $RELEASE_URL"
 
 curl -L -o cirr "$RELEASE_URL"
 
+INSTALL_DIR="$HOME/.cirr/bin"
+mkdir -p "$INSTALL_DIR"
 chmod +x cirr
+mv cirr "$INSTALL_DIR"
 
-sudo mv cirr /usr/local/bin/
-
-echo "Installation complete. You can now use the 'cirr' command."
+echo "Installation complete. The 'cirr' command has been installed to $INSTALL_DIR"
+echo "Please ensure $INSTALL_DIR is in your PATH."
+echo "You may need to add the following line to your shell configuration file (e.g., .bashrc, .zshrc):"
+echo "export PATH=\"\$HOME/.cirr/bin:\$PATH\""
+echo "After adding the line, restart your terminal or run 'source ~/.bashrc' (or the appropriate config file) to update your PATH."
