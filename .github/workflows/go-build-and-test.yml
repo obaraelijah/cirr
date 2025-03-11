@@ -1,4 +1,4 @@
-name: Go-Build-And-Test
+name: Build and test cirr cli tool
 
 on:
   pull_request:
