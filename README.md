@@ -21,7 +21,7 @@
 > [!NOTE]  
 > Currently available for Linux and MacOS systems.
 > 
-> Documentation available here: [docs.cirr.sh](https://docscirr.sh)
+> Documentation available at: [docs.cirr.sh](https://docscirr.sh)
 
 ## Contributing
  
