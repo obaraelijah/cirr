@@ -1,7 +1,7 @@
 # cirr - Cloud IP Range Retrieval Tool
 
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/obaraelijah/cirr)
-![GitHub](https://img.shields.io/github/license/obaraelijah/cirr)
+![GitHub License](https://img.shields.io/github/license/obaraelijah/cirr)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/obaraelijah/cirr/releaser.yml)
  ![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/obaraelijah/cirr)
  
