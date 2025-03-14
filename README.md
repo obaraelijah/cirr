@@ -27,6 +27,8 @@
  
  Please make sure to update tests as appropriate.
  
+ More info available here - [CONTRIBUTING.md](https://github.com/obaraelijah/cirr/blob/main/CONTRIBUTING.md)
+
  ## License
  
  [MIT](https://choosealicense.com/licenses/mit/)
