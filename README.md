@@ -14,6 +14,7 @@
  ```bash title='CLI command'
  brew tap obaraelijah/obaraelijah
  brew install cirr
+```
 
 > [!NOTE]  
 > Currently available for Linux and MacOS systems.
@@ -22,13 +23,13 @@
 
 ## Contributing
  
- Pull requests are welcome. For major changes, please open an issue first
- to discuss what you would like to change.
+Pull requests are welcome. For major changes, please open an issue first
+to discuss what you would like to change.
  
- Please make sure to update tests as appropriate.
+Please make sure to update tests as appropriate.
  
- More info available here - [CONTRIBUTING.md](https://github.com/obaraelijah/cirr/blob/main/CONTRIBUTING.md)
+More info available here - [CONTRIBUTING.md](https://github.com/obaraelijah/cirr/blob/main/CONTRIBUTING.md)
 
- ## License
+## License
  
- [MIT](https://choosealicense.com/licenses/mit/)
+[MIT](https://choosealicense.com/licenses/mit/)
